@@ -13,7 +13,7 @@
 ![Requisitos do Negócio](Requisitos.png)
 
 ## Fluxograma da solução
-![Fluxograma da solução](fluxograma.svg)
+![Fluxograma da solução](fluxograma.png)
 
 ## Pseudocódigo
 [Pseudocódigo da solução](pseudocodigo.txt)
