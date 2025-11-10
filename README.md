@@ -31,7 +31,6 @@ TREINOS = {
 
 
 def carregar_dados():
-    """Carrega as fichas do arquivo de texto simples."""
     global fichas
     try:
         with open(ARQUIVO_DADOS, 'r') as f:

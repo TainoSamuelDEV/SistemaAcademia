@@ -21,7 +21,6 @@ def carregar_dados():
         print("Erro ao ler dados.")
 
 def salvar_dados():
-    """Salva as fichas no arquivo de texto simples (Nome|Objetivo|Data)."""
     try:
         with open(ARQUIVO_DADOS, 'w') as f:
             for ficha in fichas:
