@@ -20,8 +20,7 @@
 
 ## Algoritmo desenvolvido
 [Algoritmo desenvolvido](main.py)
-  ```bash
-   
+  ```bash 
 fichas = [] 
 ARQUIVO_DADOS = "fichas.txt"
 TREINOS = {
