@@ -4,16 +4,16 @@
 ![Introdução](Introdução.png)
 
 ## Alunos
-- [Taino Samuel](https://github.com/tainosamueldev)
+- [Taino Samuel](https://github.com/tainoxs)
 - [Gabriel Ordonez](https://github.com/GahbX)
 - [Rafael Oliveira](https://github.com/rafaelodsDEV)
 - [Victor Eduard](https://github.com/vk-tor)
 
 ## Requisitos do Negócio
-![Requisitos do Negócio](apresentação\Requisitos.png)
+![Requisitos do Negócio](Requisitos.png)
 
 ## Fluxograma da solução
-![Fluxograma da solução](apresentação/fluxograma.png)
+![Fluxograma da solução](fluxograma.png)
 
 ## Pseudocódigo
 [Pseudocódigo da solução](pseudocodigo.txt)
@@ -50,7 +50,7 @@ Casos de teste manuais sugeridos para validar o sistema:
 - Persistência: após `4` (Sair e Salvar), reiniciar o programa e verificar carregamento
 
 ## Sugestão de Melhorias
-![Sugestões](apresentação\Sugestões.png)
+![Sugestões](Sugestões.png)
 
 ## Obrigado
 - Obrigado por utilizar o sistema de fichas de treino.
