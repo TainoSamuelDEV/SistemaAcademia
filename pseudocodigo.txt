@@ -1,0 +1,158 @@
+PSEUDOCÓDIGO DETALHADO — main.py
+
+SEÇÃO 1 — DADOS E ESTRUTURAS INICIAIS
+    INICIO
+        DECLARAR LISTA fichas ← LISTA_VAZIA
+        DEFINIR CONSTANTE ARQUIVO_DADOS ← "fichas.txt"
+
+        DEFINIR DICIONÁRIO TREINOS ← {
+            "emagrecimento": LISTA_DE_TUPLAS[("Corrida", "30", "min"), ("Polichinelos", "3", "30")],
+            "hipertrofia":   LISTA_DE_TUPLAS[("Supino", "4", "8"), ("Agachamento", "4", "10")],
+            "resistencia":   LISTA_DE_TUPLAS[("Pular Corda", "20", "min"), ("Flexão", "3", "max")]
+        }
+        // Comentário: TREINOS mapeia o objetivo do aluno para uma lista de exercícios e respectivas séries/repetições
+    FIM
+
+SEÇÃO 2 — FUNÇÃO carregar_dados()
+    FUNÇÃO carregar_dados()
+        // Objetivo: ler fichas do arquivo texto e popular a lista global fichas
+        INICIO
+            TENTAR
+                ABRIR ARQUIVO ARQUIVO_DADOS EM MODO LEITURA → arquivo
+                PARA CADA linha EM arquivo FAÇA
+                    REMOVER QUEBRA_DE_LINHA DE linha
+                    DIVIDIR linha POR CARACTERE '|' → campos
+                    ADICIONAR campos À LISTA fichas
+                FIM_PARA
+                IMPRIMIR "Dados carregados! Total: " + TAMANHO(fichas) + " fichas."
+            CAPTURAR FileNotFoundError
+                IMPRIMIR "Arquivo não encontrado. Iniciando vazio."
+            CAPTURAR EXCEÇÃO_GENÉRICA
+                IMPRIMIR "Erro ao ler dados."
+        FIM
+    FIM_FUNÇÃO
+
+SEÇÃO 3 — FUNÇÃO salvar_dados()
+    FUNÇÃO salvar_dados()
+        // Objetivo: escrever fichas no arquivo texto no formato Nome|Objetivo|Data
+        INICIO
+            TENTAR
+                ABRIR ARQUIVO ARQUIVO_DADOS EM MODO ESCRITA → arquivo
+                PARA CADA ficha EM fichas FAÇA
+                    // ficha é [nome, objetivo, data]
+                    CONSTRUIR_LINHA ← CONCATENAR ficha USANDO '|' E ADICIONAR "\n" AO FINAL
+                    ESCREVER CONSTRUIR_LINHA EM arquivo
+                FIM_PARA
+                IMPRIMIR "Dados salvos com sucesso!"
+            CAPTURAR EXCEÇÃO_GENÉRICA
+                IMPRIMIR "Erro ao salvar dados."
+        FIM
+    FIM_FUNÇÃO
+
+SEÇÃO 4 — FUNÇÃO menu_principal()
+    FUNÇÃO menu_principal()
+        // Objetivo: prover interação com o usuário e operações de cadastro/consulta/listagem/sair
+        INICIO
+            CHAMAR carregar_dados()
+
+            ENQUANTO VERDADEIRO FAÇA
+                IMPRIMIR "\n=== ACADEMIA CORPO EM MOVIMENTO ==="
+                IMPRIMIR "1. Cadastrar Novo Aluno"
+                IMPRIMIR "2. Consultar Ficha"
+                IMPRIMIR "3. Listar Todos os Alunos"
+                IMPRIMIR "4. Sair e Salvar Dados"
+
+                LER_ENTRADA "Escolha uma opção (1-4): " → opcao
+                REMOVER_ESPACOS opcao
+
+                SE opcao == '1' ENTÃO
+                    // Cadastro de novo aluno
+                    LER_ENTRADA "Nome do Aluno: " → nome
+                    REMOVER_ESPACOS nome
+
+                    // Validação do objetivo com base nas chaves de TREINOS
+                    ENQUANTO VERDADEIRO FAÇA
+                        LER_ENTRADA "Objetivo (emagrecimento, hipertrofia, resistencia): " → obj
+                        REMOVER_ESPACOS obj
+                        CONVERTER_PARA_MINUSCULAS obj
+                        SE obj ESTÁ_EM CHAVES(TREINOS) ENTÃO
+                            SAIR_DO_LOOP
+                        SENÃO
+                            IMPRIMIR "Objetivo inválido."
+                        FIM_SE
+                    FIM_ENQUANTO
+
+                    LER_ENTRADA "Data de Início: " → data
+                    REMOVER_ESPACOS data
+
+                    ADICIONAR LISTA [nome, obj, data] À fichas
+                    IMPRIMIR "Ficha de " + nome + " cadastrada."
+
+                SENÃO SE opcao == '2' ENTÃO
+                    // Consulta de ficha por nome do aluno
+                    LER_ENTRADA "Nome para buscar: " → busca
+                    REMOVER_ESPACOS busca
+                    CONVERTER_PARA_MINUSCULAS busca
+                    ATRIBUIR FALSO → encontrada
+
+                    PARA CADA (nome_aluno, obj_aluno, data_aluno) EM fichas FAÇA
+                        SE CONVERTER_PARA_MINUSCULAS(nome_aluno) == busca ENTÃO
+                            IMPRIMIR "\n--- FICHA ---"
+                            IMPRIMIR "Aluno: " + nome_aluno
+                            IMPRIMIR "Objetivo: " + CONVERTER_PARA_MAIUSCULAS(obj_aluno)
+
+                            // Obter treino associado ao objetivo do aluno
+                            ATRIBUIR TREINOS[obj_aluno] SE EXISTE, SENÃO LISTA_VAZIA → treino
+                            IMPRIMIR "Exercícios:"
+
+                            PARA CADA (nome_ex, series, reps) EM treino FAÇA
+                                IMPRIMIR "  -> " + nome_ex + " | " + series + " x " + reps
+                            FIM_PARA
+
+                            ATRIBUIR VERDADEIRO → encontrada
+                            INTERROMPER_LOOP // sai do laço de busca ao encontrar o aluno
+                        FIM_SE
+                    FIM_PARA
+
+                    SE NÃO encontrada ENTÃO
+                        IMPRIMIR "Aluno '" + busca + "' não encontrado."
+                    FIM_SE
+
+                SENÃO SE opcao == '3' ENTÃO
+                    // Listagem de todos os alunos cadastrados
+                    SE fichas NÃO_ESTÁ_VAZIA ENTÃO
+                        IMPRIMIR "\n--- TODOS OS ALUNOS ---"
+                        // enumerate começando de 1
+                        ATRIBUIR 1 → i
+                        PARA CADA ficha EM fichas FAÇA
+                            IMPRIMIR CONVERTER_PARA_STRING(i) + ". " + ficha[0] + " - Objetivo: " + ficha[1]
+                            ATRIBUIR i + 1 → i
+                        FIM_PARA
+                    SENÃO
+                        IMPRIMIR "Lista vazia."
+                    FIM_SE
+
+                SENÃO SE opcao == '4' ENTÃO
+                    // Sair do programa salvando os dados
+                    CHAMAR salvar_dados()
+                    IMPRIMIR "Programa encerrado."
+                    SAIR_DO_LOOP // encerra o laço principal
+
+                SENÃO
+                    IMPRIMIR "Opção não existe. Tente de 1 a 4."
+                FIM_SE
+            FIM_ENQUANTO
+        FIM
+    FIM_FUNÇÃO
+
+SEÇÃO 5 — PONTO DE ENTRADA
+    INICIO
+        SE __name__ == "__main__" ENTÃO
+            CHAMAR menu_principal()
+        FIM_SE
+    FIM
+
+OBSERVAÇÕES
+    - Todas as palavras-chave de controle (SE, SENÃO, ENQUANTO, PARA) estão em maiúsculas para reforçar a convenção.
+    - Funções e constantes foram mantidas com a mesma relação e papéis do código original.
+    - Comentários explicam validações de entrada, uso do dicionário TREINOS e a estratégia de persistência simples por arquivo texto.
