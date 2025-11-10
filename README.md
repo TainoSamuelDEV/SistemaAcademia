@@ -3,7 +3,7 @@
 ## Introdução
 ![Introdução](Introdução.png)
 
-## Alunos
+## GitHub dos Alunos
 - [Taino Samuel](https://github.com/tainoxs)
 - [Gabriel Ordonez](https://github.com/GahbX)
 - [Rafael Oliveira](https://github.com/rafaelodsDEV)
