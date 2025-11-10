@@ -1,4 +1,4 @@
-# Sistema de Fichas de Treino — Academia Corpo em Movimento
+# Sistema de Gerenciamento de Treinos — Academia Corpo em Movimento
 
 ## Introdução
 ![Introdução](Introdução.png)
