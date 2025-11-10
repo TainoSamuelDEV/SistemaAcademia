@@ -34,6 +34,11 @@
    ```bash
    python main.py
    ```
+   
+   ou
+
+   Execute o arquivo `main.exe` dentro da pasta exe
+
 3. Interaja pelo menu apresentado:
    - `1` Cadastrar Novo Aluno
    - `2` Consultar Ficha
