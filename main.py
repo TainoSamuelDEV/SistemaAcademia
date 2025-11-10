@@ -9,7 +9,6 @@ TREINOS = {
 
 
 def carregar_dados():
-    """Carrega as fichas do arquivo de texto simples."""
     global fichas
     try:
         with open(ARQUIVO_DADOS, 'r') as f:
@@ -94,6 +93,6 @@ def menu_principal():
 
         else:
             print("Opção não existe. Tente de 1 a 4.")
-            
+
 if __name__ == "__main__":
     menu_principal()
