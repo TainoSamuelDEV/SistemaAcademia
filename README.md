@@ -31,9 +31,9 @@ TREINOS = {
 
 
 def carregar_dados():
-    global fichas
+    global fichas ##variavel ficha fora da func
     try:
-        with open(ARQUIVO_DADOS, 'r') as f:
+        with open(ARQUIVO_DADOS, 'r') as f: ##ler
             for linha in f:
                 fichas.append(linha.strip().split('|')) 
         print(f"Dados carregados! Total: {len(fichas)} fichas.")
@@ -44,7 +44,7 @@ def carregar_dados():
 
 def salvar_dados():
     try:
-        with open(ARQUIVO_DADOS, 'w') as f:
+        with open(ARQUIVO_DADOS, 'w') as f: ##escrever
             for ficha in fichas:
                 f.write("|".join(ficha) + "\n") 
         print("Dados salvos com sucesso!")
@@ -114,7 +114,7 @@ def menu_principal():
 
         else:
             print("Opção não existe. Tente de 1 a 4.")
-            
+
 if __name__ == "__main__":
     menu_principal()
    ```
